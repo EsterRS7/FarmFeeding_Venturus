@@ -1,0 +1,10 @@
+.Rodape{
+    position: absolute;
+    bottom: 0;
+
+    font-family: 'Nunito Sans', sans-serif;
+    background-color: var(--cinza);
+    width: 100%;
+    padding: 35px;
+    text-align: center;
+}

@@ -1,0 +1,16 @@
+@import url(https://fonts.googleapis.com/css2?family=Cal+Sans&display=swap);
+@import url(https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap);
+
+:root{/* para predefinir as cores*/
+    --verde: #17571D;
+    --verde-claro: #7BA63C;
+    --amarelo: #F5D414;
+    --cinza: #D9D9D9;
+    --vermelho: #CC2F21;
+}
+    
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}

@@ -1,0 +1,62 @@
+.Cabecalho{
+    display: flex;
+    background-color: var(--verde);
+    padding: 5px;
+    color: white;
+    font-family: 'Cal Sans', sans-serif;
+    font-size: 2rem;
+}
+
+.filho{
+    margin: 5px 10px 0;
+}
+img{
+    width: 40px;
+}
+.nome{
+    margin-top: 5px;
+    margin-left: 5px;
+}
+span{
+    color: var(--amarelo);
+}
+
+.direito{
+    position: absolute;
+    right: 30px;
+}
+
+.cad{
+    background-color: var(--amarelo);
+    border: var(--amarelo) solid 1px;
+    border-radius: 20px;
+    padding: 10px 15px;
+    color: black;
+    box-shadow: 1px 3px 6px 2px  rgba(0, 0, 0, 0.2);
+    margin-right: 10px;
+    font-family: 'Cal Sans', sans-serif;
+}
+.cad:hover{
+    box-shadow: none;
+    background-color: #e7c813;
+    border: #e7c813;
+    cursor: pointer;
+}
+
+.login{
+    background-color: var(--verde);
+    border: var(--amarelo) solid 1px;
+    border-radius: 20px;
+    padding: 10px 15px;
+    color: white;
+    box-shadow: 1px 3px 6px 2px  rgba(0, 0, 0, 0.2);
+    font-family: 'Cal Sans', sans-serif;
+}
+.login:hover{
+    background-color: #e7c813;
+    border: #e7c813 solid 1px;
+    border-radius: 20px;
+    color: black;
+    box-shadow: none;
+    cursor: pointer;
+}
