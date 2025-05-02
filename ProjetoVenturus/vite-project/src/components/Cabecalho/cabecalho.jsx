@@ -8,7 +8,7 @@ const Cabecalho = () =>{
                 <img src='./public/fazenda.png'></img> 
             </div>
             <div className={style.nome}>
-                Farm<span>Feed</span>
+                Farm<span>Feeding</span>
             </div>
             
             {/* LADO DIREITO */}
