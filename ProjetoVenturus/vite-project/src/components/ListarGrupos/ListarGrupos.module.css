@@ -1,0 +1,99 @@
+.grid{
+    margin: 20px;
+}
+.h4{
+    color: var(--cinza);
+}
+.container {
+    padding: 20px;
+}
+
+.title {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.noGroups {
+    text-align: center;
+    font-size: 16px;
+    color: #666;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    
+}
+
+.card {
+    border: 1.5px solid var(--cinza);
+    border-radius: 8px;
+    padding: 15px;
+    background-color: #fff;
+    box-shadow: 0px 0px 15px 3px  rgba(0, 0, 0, 0.096);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+    max-width: 100%;
+}
+
+.groupImage {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin: 0;
+}
+
+.noImage {
+    width: 100px;
+    height: 100px;
+    background-color: #e6f0fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #666;
+    margin: 0;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    gap: 5px;
+    flex-grow: 1;
+}
+
+.groupName {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.detail {
+    margin: 0;
+    color: #555;
+    font-size: 14px;
+}
+
+.deleteButton {
+    padding: 5px 10px;
+    border: 2px solid #ff0000;
+    border-radius: 5px;
+    background-color: transparent;
+    color: #ff0000;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.deleteButton:hover {
+    background-color: #ff0000;
+    color: white;
+}

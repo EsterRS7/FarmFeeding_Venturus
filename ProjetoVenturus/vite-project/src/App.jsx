@@ -1,11 +1,14 @@
 import { Cabecalho, PagIncial, Rodape } from "./components";
+import { Router  } from './Router';
+import { AuthProvider } from './Context';
+
 
 const App = () =>{
   return(
     <div>
-      <Cabecalho />
-      <PagIncial/>
-      <Rodape />
+      <AuthProvider>
+        <Router/>
+      </AuthProvider>
     </div>
   )
 }

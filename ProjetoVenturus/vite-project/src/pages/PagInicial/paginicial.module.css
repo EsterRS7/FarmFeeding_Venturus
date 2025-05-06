@@ -1,0 +1,104 @@
+
+.imgContainer{
+    position: relative;
+    display: inline-block;
+}
+.sobreposto{
+    position: absolute;
+    color: white;
+    padding: 10px;
+    z-index: 1;
+
+    top: 50%;  /* ajusta a posição vertical */
+    left: 50%; /* ajusta a posição horizontal */
+    transform: translate(-50%, -50%); /* centraliza perfeitamente */
+
+    animation: go-back 2s;
+    font-family: 'Nunito Sans', sans-serif;
+}
+@keyframes go-back {
+    from {
+      transform: translateY(250rem);
+    }
+    to {
+      transform: translateY(20);
+    }
+} 
+
+img.fundo{
+    width: 100%;
+    filter: brightness(30%);
+}
+
+.pagina{
+    font-family: 'Nunito Sans', sans-serif;
+    width: 80%;
+    justify-self: center;
+    margin: 70px;
+    position: relative;
+}
+.galeria{
+    width: 100%;
+    height: auto;
+    margin-top: 30px;
+    justify-self: center;
+    border-collapse: inherit;
+    display: flex;
+}
+.h2{
+    text-align: center;
+    color: black;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.h2A{
+    text-align: left;
+    color: var(--verde-claro);
+    font-weight: bold;
+    font-size: 25px;
+    margin-bottom: 20px;
+}
+
+.h4, .slogan {
+    font-size: 22px;
+    font-family: 'Nunito Sans';
+    font-weight: bolder;
+}
+
+.slogan{
+    text-align: center;
+}
+
+.card1, .card3{
+    width: 60%;
+    height: auto;
+    /*background-color: #7ca63cd9;*/
+    color: black;
+
+    border-radius: 20px;
+    border: solid var(--verde-claro);
+    box-shadow: 0px 0px 15px 3px  rgba(0, 0, 0, 0.146);
+
+    transition: background-color 0.3s;
+    font-family: 'Nunito Sans';
+}
+
+.card1:hover, .card3:hover{
+    background-color: #7ca63cd9;
+    border: none;
+    color: white
+    
+}
+
+.card2{
+    width: 20%
+}
+
+.conteudoCard{
+    margin: 20px;
+}
+
+b{
+    color: var(--verde);
+}

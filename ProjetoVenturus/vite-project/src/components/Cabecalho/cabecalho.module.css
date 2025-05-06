@@ -10,15 +10,18 @@
 .filho{
     margin: 5px 10px 0;
 }
-img{
+.Cabecalho img{
     width: 40px;
+    margin-bottom: 10px;
 }
 .nome{
     margin-top: 5px;
     margin-left: 5px;
+    font-family: 'Cal Sans', sans-serif;
 }
 span{
     color: var(--amarelo);
+    font-family: 'Cal Sans', sans-serif;
 }
 
 .direito{
@@ -26,15 +29,26 @@ span{
     right: 30px;
 }
 
+.linkB, .linkB:hover{
+    text-decoration: none;
+    color: white;
+    display: flex;
+}
+
 .cad{
     background-color: var(--amarelo);
     border: var(--amarelo) solid 1px;
     border-radius: 20px;
-    padding: 10px 15px;
+    padding: 5px 15px;
     color: black;
     box-shadow: 1px 3px 6px 2px  rgba(0, 0, 0, 0.2);
     margin-right: 10px;
     font-family: 'Cal Sans', sans-serif;
+    font-size: 0.9rem;
+    width: auto;
+    height: 40px;
+    transition: background-color 0.3s;
+
 }
 .cad:hover{
     box-shadow: none;
@@ -47,10 +61,14 @@ span{
     background-color: var(--verde);
     border: var(--amarelo) solid 1px;
     border-radius: 20px;
-    padding: 10px 15px;
+    padding: 5px 15px;
     color: white;
     box-shadow: 1px 3px 6px 2px  rgba(0, 0, 0, 0.2);
     font-family: 'Cal Sans', sans-serif;
+    font-size: 0.9rem;
+    width: auto;
+    height: 40px; /*ARRUMAR O TEXTO NO BOTÃO PLMDS*/
+    transition: background-color 0.3s;
 }
 .login:hover{
     background-color: #e7c813;

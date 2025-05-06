@@ -1,0 +1,36 @@
+.MDBBtn{
+    background-color: var(--verde-claro) !important;
+}
+.textoCadastro{
+    display: flex;
+    gap: 0.2rem; 
+    align-items: center;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.textoCadastro span{
+    color: var(--verde);
+    cursor: pointer;
+}
+
+.imagemLateral {
+    background-image: url('../fazanda.jpg');
+    background-size: cover;
+    border-radius: none;
+    background-position: center;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+  }
+  
+  .imagemLateralTexto {
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 2rem;
+    border-radius: 1rem;
+    text-align: center;
+    max-width: 80%;
+  }

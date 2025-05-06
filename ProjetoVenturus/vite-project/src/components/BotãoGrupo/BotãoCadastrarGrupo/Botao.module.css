@@ -1,0 +1,32 @@
+.button {
+    padding: 5px 15px;
+    border: none;
+    border-radius: 20px;
+    border: 2px solid var(--verde-claro);
+    font-size: 0.8rem;
+    background-color: transparent;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-left: 20px;
+  }
+
+  .span {
+    color: var(--verde-claro);
+    font-weight: bold;
+  }
+  
+  .button:hover {
+    background-color: var(--verde-claro);
+    color: white;
+  }
+  
+  .button:hover .span {
+    color: white;
+  }
+
+  .mais{
+    font-weight: bold; 
+    font-size: 17px;
+    color: var(--verde)
+  }

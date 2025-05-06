@@ -1,0 +1,31 @@
+.MDBBtn{
+    background-color: var(--verde-claro) !important;
+}
+.textoCadastro{
+    display: flex;
+    gap: 0.2rem; 
+    align-items: center;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.imagemLateral {
+    min-height: 50vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+}
+.imagemCad{
+    max-width: 50% !important;
+    height: auto;
+}
+.textoImagem{
+    font-size: 1rem;
+    margin-top: 2px;
+}
+.MDBCol{
+    background-color: white;
+}
