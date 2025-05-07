@@ -50,7 +50,7 @@ const CadastroForm2 = ({ onSubmit, formData, handleInputChange }) => {
         <div className={styles.formFields}>
           <div className={styles.inputGroup}>
             <InputForm
-              label="Nome grupo:"
+              label="Nome grupo:&nbsp;&nbsp;"
               type="text"
               name="Nome"
               value={formData.Nome}
@@ -60,9 +60,9 @@ const CadastroForm2 = ({ onSubmit, formData, handleInputChange }) => {
           </div>
           <div className={styles.inputGroup}>
             <InputForm
-              label="Espécie:"
+              label="Raça:&nbsp;&nbsp;"
               type="text"
-              name="Especie"
+              name="Especie" 
               value={formData.Especie}
               onChange={handleInputChange}
               placeholder="Insira aqui..."
@@ -70,7 +70,7 @@ const CadastroForm2 = ({ onSubmit, formData, handleInputChange }) => {
           </div>
           <div className={styles.inputGroup}>
             <InputForm
-              label="Quantidade de animais:"
+              label="Quantidade de animais:&nbsp;&nbsp;"
               type="number"
               name="Quantidade"
               value={formData.Quantidade}

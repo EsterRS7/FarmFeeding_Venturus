@@ -6,13 +6,11 @@
     gap: 0.2rem; 
     align-items: center;
     justify-content: center;
+    
     margin-top: 2rem;
 }
 
-.textoCadastro span{
-    color: var(--verde);
-    cursor: pointer;
-}
+
 
 .imagemLateral {
     background-image: url('../fazanda.jpg');

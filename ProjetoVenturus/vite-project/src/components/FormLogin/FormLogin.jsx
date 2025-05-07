@@ -94,8 +94,8 @@ const FormLogin = () => {
             {mensagem && <p className="mt-3 text-center text-danger">{mensagem}</p>}
 
             <div className={styles.textoCadastro}>
-              <p className="mb-0">Não é cadastrado?</p>
-              <Link to="/cadastra-se"><span>Cadastre-se aqui!</span></Link>
+              <p className="mb-0">Não é cadastrado? &nbsp;
+              <Link to="/cadastra-se"><b>Cadastre-se aqui!</b></Link></p>
             </div>
           </form>
         </MDBCol>

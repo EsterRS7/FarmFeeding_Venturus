@@ -15,7 +15,7 @@
     margin-bottom: 10px;
 }
 .nome{
-    margin-top: 5px;
+    margin-top: 0px;
     margin-left: 5px;
     font-family: 'Cal Sans', sans-serif;
 }
@@ -27,6 +27,7 @@ span{
 .direito{
     position: absolute;
     right: 30px;
+    top: 0px;
 }
 
 .linkB, .linkB:hover{
@@ -77,4 +78,9 @@ span{
     color: black;
     box-shadow: none;
     cursor: pointer;
+}
+
+.linkC{
+    display: inline-flex;
+    height: fit-content;
 }

@@ -27,6 +27,7 @@ const PagIncial = () => {
                 <div className={style.galeriaGrupo}>
                     {/* Renderizar ListarGrupos apenas se o usuário estiver autenticado */}
                     {usuario ? (<div>
+                            <h2 className={style.h2A}>Seus grupos</h2>
                             <h2 className={style.h2A}><BotaoCadastrarGrupo/></h2>
                             <ListarGrupos/>
                             <br/><hr/><br/>
@@ -81,7 +82,7 @@ const PagIncial = () => {
                     ): <center>
                             <p>
                                 Pronto para transformar a gestão da sua fazenda?<br/>
-                                Cadastre-se grátis e comece hoje mesmo!🌿
+                                <Link to="/cadastra-se">Cadastre-se</Link> grátis e comece hoje mesmo!🌿
                             </p>
                         </center>
                     }

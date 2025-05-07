@@ -46,7 +46,8 @@
 
 .imagePlaceholder {
     width: auto;
-    height: 100px; /* Aumentado de 60px */
+    height: 100px;
+    padding: 10px;
     background-color: #e6f0fa;
     border-radius: 5px;
     display: flex;

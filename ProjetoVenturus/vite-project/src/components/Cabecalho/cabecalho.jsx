@@ -34,7 +34,7 @@ const Cabecalho = () => {
             <div className={style.direito}>
                 {usuario ? (
                     <>
-                        <Link className={style.linkC} to="/perfil">
+                        <Link className={style.linkC} to="/Perfil">
                             <button className={style.cad}>Perfil</button>
                         </Link>
                         <button className={style.login} onClick={handleLogout}>
