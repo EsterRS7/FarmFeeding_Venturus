@@ -5,6 +5,7 @@ const Cadastrar = () => {
         return(
             <div className={style.Cadastrar}>
                 <FormCadastrar />
+                
             </div>
         );
     };

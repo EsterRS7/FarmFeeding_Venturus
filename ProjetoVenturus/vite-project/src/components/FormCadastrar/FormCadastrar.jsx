@@ -183,6 +183,7 @@ return(
                   <br />
                   Seu estoque sempre no controle e seus animais sempre bem cuidados.
                   </p>
+                  <h6 className={styles.creditos}>Ilustração por <a href="https://storyset.com/">Storyset</a></h6>
               </div>
           </MDBCol>
         </MDBRow>

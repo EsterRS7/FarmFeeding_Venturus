@@ -14,7 +14,7 @@ const uploadToCloudinary = async (file) => {
   const formData = new FormData();
   formData.append("file", file);
   formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
-
+ 
   try {
     const response = await axios.post(
       `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`,
@@ -223,7 +223,7 @@ const PagPerfil = () => {
 
         <div className={style.voltar}>
           <Link to="/">
-            <img src='./public/volta.png' alt="Voltar" />
+            <img src='./public/volta.png' alt="Voltar" className={style.btnVoltar}/>
           </Link>
           <h3 className={style.h3}>Seu Perfil</h3>
         </div>
