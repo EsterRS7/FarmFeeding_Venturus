@@ -29,28 +29,28 @@ const RegistrarProdutoForm = ({ onSubmit, formData, handleInputChange }) => {
       <div className={styles.formContainer}>
         <div className={styles.formFields}>
           <InputForm
-            label="Nome: "
+            label="Nome do produto:&nbsp;&nbsp;"
             type="text"
             name="nome"
             value={formData.nome}
             onChange={handleInputChange}
-            placeholder="Nome do Produto"
+            placeholder="Insira aqui..."
           />
           <InputForm
-            label="Descrição: "
+            label="Descrição:&nbsp;&nbsp;"
             type="text"
             name="descricao"
             value={formData.descricao}
             onChange={handleInputChange}
-            placeholder="Descrição do Produto"
+            placeholder="Insira aqui..."
           />
           <InputForm
-            label="Marca: "
+            label="Marca:&nbsp;&nbsp;"
             type="text"
             name="marca"
             value={formData.marca}
             onChange={handleInputChange}
-            placeholder="Marca do Produto"
+            placeholder="Insira aqui..."
           />
           <div className={styles.inputGroupSideBySide}>
             <InputForm
@@ -59,7 +59,7 @@ const RegistrarProdutoForm = ({ onSubmit, formData, handleInputChange }) => {
               name="validade"
               value={formData.validade}
               onChange={handleInputChange}
-              placeholder="Validade "
+              placeholder="Insira aqui..."
             />
             <InputForm
               label={"Estoque: "}
@@ -67,16 +67,16 @@ const RegistrarProdutoForm = ({ onSubmit, formData, handleInputChange }) => {
               name="estoque"
               value={formData.estoque}
               onChange={handleInputChange}
-              placeholder="Quantidade em Estoque"
+              placeholder="Insira aqui..."
             />
           </div>
           <InputForm
-            label="Preço: "
+            label="Preço:&nbsp;&nbsp;"
             type="number"
             name="preco"
             value={formData.preco}
             onChange={handleInputChange}
-            placeholder="Preço do Produto"
+            placeholder="Insira aqui..."
           />
         </div>
         <div className={styles.photoContainer}>

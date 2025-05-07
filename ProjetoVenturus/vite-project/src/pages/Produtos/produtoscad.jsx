@@ -55,7 +55,7 @@ const Produtoscad = () => {
                         className={`${style.orderButton} ${sortBy === "validade" ? style.active : ""}`} 
                         onClick={() => setSortBy("validade")}
                     >
-                        Validade
+                        Validade 
                     </button>
                     <button 
                         className={`${style.orderButton} ${sortBy === "marca" ? style.active : ""}`} 
