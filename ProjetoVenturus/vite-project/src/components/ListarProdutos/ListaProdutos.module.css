@@ -17,16 +17,9 @@
     text-align: left;
 }
 
-.productList {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
 .productItem {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    flex-direction: column;
     padding: 15px;
     background-color: #f9f9f9;
     border: 1px solid #e0e0e0;
@@ -35,23 +28,30 @@
     font-size: 16px;
 }
 
+.productContent {
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.productImageContainer {
+    margin-right: 15px;
+}
+
 .productImage {
     width: auto;
-    height: 100px;
+    height: 100px; /* Aumentado de 60px para corresponder ao wireframe */
     object-fit: cover;
     border-radius: 5px;
-    margin-right: 15px;
 }
 
 .imagePlaceholder {
     width: auto;
-    height: 100px;
+    height: 100px; /* Aumentado de 60px */
     background-color: #e6f0fa;
     border-radius: 5px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-right: 15px;
     color: #666;
     font-size: 14px;
 }
@@ -64,31 +64,43 @@
 .productName {
     font-weight: bold;
     color: #333;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     font-size: 18px;
+}
+
+.productInfoList {
+    margin: 0;
+    padding: 0;
 }
 
 .productInfo {
     color: #666;
     font-size: 14px;
-    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.infoLabel {
+    color: #666;
+    font-size: 14px;
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.infoValue {
+    color: #333;
+    font-size: 14px;
 }
 
 .actionContainer {
     display: flex;
-    align-items: center;
+    justify-content: flex-end;
     gap: 15px;
 }
 
-.stockContainer {
+.stockAction {
     display: flex;
     align-items: center;
-    gap: 10px;
-}
-
-.stockContainer span {
-    color: #666;
-    font-size: 14px;
+    gap: 5px;
 }
 
 .estoqueInput {
@@ -113,7 +125,7 @@
 
 .itensgrid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(2fr));
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 20px;
 }
 

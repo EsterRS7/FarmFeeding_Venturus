@@ -5,6 +5,8 @@ import { useContext } from 'react'; // Importar useContext
 import style from './paginicial.module.css';
 import { BotaoCadastrarProduto } from '../../components/BotãoGrupo/BotãoCadastrarProduto/BotaoCadastrarProduto';
 import { ListaProdutos } from '../../components/ListarProdutos/ListarProdutos';
+import { Link } from 'react-router-dom';
+import { BotaoCadastrarGrupo } from '../../components';
 
 const PagIncial = () => {
     const { usuario } = useContext(AuthContext); // Obter o estado do usuário
@@ -25,8 +27,8 @@ const PagIncial = () => {
                 <div className={style.galeriaGrupo}>
                     {/* Renderizar ListarGrupos apenas se o usuário estiver autenticado */}
                     {usuario ? (<div>
-                            <h2 className={style.h2A}>Seus grupos cadastrados</h2>
-                            <ListarGrupos />
+                            <h2 className={style.h2A}><BotaoCadastrarGrupo/></h2>
+                            <ListarGrupos/>
                             <br/><hr/><br/>
                         </div>
                     ): <p></p>}

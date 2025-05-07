@@ -1,16 +1,16 @@
-import { Modal } from "../Modal";
-import { RegistrarProdutoForm } from "../RegistrarProdutoForm";
-import { useState } from "react";
-import styles from "./Botao.module.css";
+import { useState, useContext } from "react";
 import { db } from "../../../services";
 import { collection, addDoc } from "firebase/firestore";
 import axios from "axios";
+import { AuthContext } from "../../../Context/AuthContext";
+import { Modal } from "../Modal";
+import styles from "./Botao.module.css";
+import { RegistrarProdutoForm } from "../RegistrarProdutoForm";
 
 // Configuração do Cloudinary
-const CLOUDINARY_CLOUD_NAME = "dcbmnqbce"; // Substitua pelo seu Cloud Name
-const CLOUDINARY_UPLOAD_PRESET = "UploadFarmFeeding"; // Verifique este nome no Cloudinary
+const CLOUDINARY_CLOUD_NAME = "dcbmnqbce";
+const CLOUDINARY_UPLOAD_PRESET = "UploadFarmFeeding";
 
-// Função para fazer upload da imagem para o Cloudinary
 const uploadToCloudinary = async (file) => {
     const formData = new FormData();
     formData.append("file", file);
@@ -26,23 +26,23 @@ const uploadToCloudinary = async (file) => {
                 },
             }
         );
-        return response.data.secure_url; // URL pública da imagem
+        return response.data.secure_url;
     } catch (error) {
-        // Captura detalhes do erro da resposta
         const errorMessage = error.response?.data?.error?.message || error.message;
         throw new Error(`Erro ao fazer upload para Cloudinary: ${errorMessage}`);
     }
 };
 
-const BotaoCadastrarProduto = () => {
+const BotaoCadastrarProduto = ({ grupoId }) => {
+    const { usuario } = useContext(AuthContext); // Obter o UID do usuário logado
     const [isProdutoOpen, setIsProdutoOpen] = useState(false);
     const [produtoData, setProdutoData] = useState({
         nome: "",
         descricao: "",
         marca: "",
         validade: "",
-        estoque: "",
         preco: "",
+        estoque: "",
         foto: null,
     });
 
@@ -58,11 +58,15 @@ const BotaoCadastrarProduto = () => {
         e.preventDefault();
         console.log("Botão Enviar clicado. Dados do produto:", produtoData);
 
+        if (!usuario || !usuario.uid) {
+            alert("Você precisa estar logado para cadastrar um produto.");
+            return;
+        }
+
         try {
             let fotoURL = null;
             let fotoName = null;
 
-            // Tenta fazer upload para o Cloudinary, se houver foto
             if (produtoData.foto) {
                 fotoName = produtoData.foto.name;
                 try {
@@ -77,29 +81,30 @@ const BotaoCadastrarProduto = () => {
                 console.log("Nenhuma foto selecionada.");
             }
 
-            // Salva os dados no Firestore
+            // Salva os dados no Firestore, incluindo o userId e grupoId
             const docRef = await addDoc(collection(db, "produtos"), {
                 nome: produtoData.nome,
                 descricao: produtoData.descricao,
                 marca: produtoData.marca,
                 validade: produtoData.validade,
-                estoque: produtoData.estoque,
-                preco: produtoData.preco,
+                preco: parseFloat(produtoData.preco),
+                estoque: parseInt(produtoData.estoque),
                 fotoURL: fotoURL,
                 fotoName: fotoName,
+                grupoId: grupoId,
+                userId: usuario.uid, // Adicionar o userId
                 timestamp: new Date(),
             });
             console.log("Produto salvo com ID:", docRef.id);
 
-            // Fecha o modal e reseta o formulário
             setIsProdutoOpen(false);
             setProdutoData({
                 nome: "",
                 descricao: "",
                 marca: "",
                 validade: "",
-                estoque: "",
                 preco: "",
+                estoque: "",
                 foto: null,
             });
         } catch (error) {
@@ -111,7 +116,7 @@ const BotaoCadastrarProduto = () => {
     return (
         <>
             <button className={styles.button} onClick={() => setIsProdutoOpen(true)}>
-                <span className={styles.span}>+</span> Adicionar produto
+                <span className={styles.span}>+</span>&nbsp;&nbsp;Cadastrar Produto
             </button>
 
             <Modal isOpen={isProdutoOpen} onClose={() => setIsProdutoOpen(false)}>

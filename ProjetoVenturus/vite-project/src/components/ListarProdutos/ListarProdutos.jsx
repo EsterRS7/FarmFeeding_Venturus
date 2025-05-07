@@ -1,156 +1,157 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { db } from "../../services";
-import { collection, onSnapshot, doc, updateDoc, deleteDoc } from "firebase/firestore";
+import { collection, onSnapshot, deleteDoc, doc, query, where, orderBy, updateDoc, getDoc } from "firebase/firestore";
 import styles from "./ListaProdutos.module.css";
+import { AuthContext } from "../../Context/AuthContext";
 
-const ListaProdutos = ({ sortBy }) => {
+const ListaProdutos = ({ sortBy, grupoId }) => {
+    const { usuario } = useContext(AuthContext); // Obter o UID do usuário logado
     const [produtos, setProdutos] = useState([]);
+    const [estoqueEditado, setEstoqueEditado] = useState({});
 
     useEffect(() => {
-        const unsubscribe = onSnapshot(collection(db, "produtos"), (snapshot) => {
-            const listaProdutos = snapshot.docs.map((doc) => ({
-                id: doc.id,
-                ...doc.data(),
-            }));
-            setProdutos(listaProdutos);
-            console.log("Produtos atualizados:", listaProdutos);
-        }, (error) => {
-            console.error("Erro ao buscar produtos:", error);
+        if (!usuario || !usuario.uid) {
+            console.warn("Usuário não autenticado ou UID não disponível.");
+            setProdutos([]);
+            return;
+        }
+
+        // Verificar se o grupo pertence ao usuário logado
+        const checkGroupOwnership = async () => {
+            const grupoRef = doc(db, "grupos", grupoId);
+            const grupoDoc = await getDoc(grupoRef);
+            if (!grupoDoc.exists() || grupoDoc.data().userId !== usuario.uid) {
+                console.warn("Grupo não encontrado ou não pertence ao usuário logado.");
+                setProdutos([]);
+                return false;
+            }
+            return true;
+        };
+
+        const fetchProdutos = async () => {
+            const isOwner = await checkGroupOwnership();
+            if (!isOwner) return;
+
+            let q = query(
+                collection(db, "produtos"),
+                where("grupoId", "==", grupoId)
+            );
+            if (sortBy) {
+                const field = sortBy === "alfabetica" ? "nome" : sortBy;
+                const direction = sortBy === "preco" ? "asc" : "desc";
+                q = query(q, orderBy(field, direction));
+            }
+
+            const unsubscribe = onSnapshot(q, (snapshot) => {
+                const listaProdutos = snapshot.docs.map((doc) => ({
+                    id: doc.id,
+                    ...doc.data(),
+                }));
+                setProdutos(listaProdutos);
+                console.log("Produtos atualizados:", listaProdutos);
+            }, (error) => {
+                console.error("Erro ao buscar produtos:", error);
+            });
+
+            return unsubscribe;
+        };
+
+        fetchProdutos().then((unsubscribe) => {
+            return () => unsubscribe && unsubscribe();
         });
+    }, [sortBy, grupoId, usuario]);
 
-        return () => unsubscribe();
-    }, []);
+    const handleDelete = async (id) => {
+        if (window.confirm("Tem certeza que deseja deletar este produto?")) {
+            try {
+                await deleteDoc(doc(db, "produtos", id));
+                console.log("Produto deletado com ID:", id);
+            } catch (error) {
+                console.error("Erro ao deletar produto:", error);
+                alert("Erro ao deletar produto. Verifique o console para mais detalhes.");
+            }
+        }
+    };
 
-    // Função para atualizar o estoque no Firestore
-    const handleEstoqueChange = async (produtoId, novoEstoque) => {
-        const estoqueNumerico = parseInt(novoEstoque, 10) || 0;
-        if (estoqueNumerico < 0) return;
+    const handleEstoqueChange = async (id, value) => {
+        const novoEstoque = parseInt(value) || 0;
+        if (novoEstoque < 0) {
+            alert("O estoque não pode ser negativo.");
+            return;
+        }
         try {
-            const produtoRef = doc(db, "produtos", produtoId);
-            await updateDoc(produtoRef, { estoque: estoqueNumerico });
-            console.log(`Estoque do produto ${produtoId} atualizado para ${estoqueNumerico}`);
+            await updateDoc(doc(db, "produtos", id), { estoque: novoEstoque });
+            setEstoqueEditado((prev) => ({ ...prev, [id]: novoEstoque }));
+            console.log("Estoque atualizado para o produto ID:", id, "Novo valor:", novoEstoque);
         } catch (error) {
-            console.error("Erro ao atualizar o estoque:", error);
-            alert("Erro ao atualizar o estoque. Verifique o console.");
+            console.error("Erro ao atualizar estoque:", error);
+            alert("Erro ao atualizar estoque. Verifique o console para mais detalhes.");
         }
     };
-
-    // Função para deletar o produto no Firestore
-    const handleDeleteProduto = async (produtoId) => {
-        if (!window.confirm("Tem certeza que deseja deletar este produto?")) return;
-        try {
-            const produtoRef = doc(db, "produtos", produtoId);
-            await deleteDoc(produtoRef);
-            console.log(`Produto ${produtoId} deletado com sucesso`);
-        } catch (error) {
-            console.error("Erro ao deletar o produto:", error);
-            alert("Erro ao deletar o produto. Verifique o console.");
-        }
-    };
-
-    // Função para ordenar os produtos
-    const sortProdutos = (produtos) => {
-        if (!sortBy) return produtos;
-
-        const sortedProdutos = [...produtos];
-        switch (sortBy) {
-            case "alfabetica":
-                return sortedProdutos.sort((a, b) => 
-                    (a.nome || "").localeCompare(b.nome || "")
-                );
-            case "preco":
-                return sortedProdutos.sort((a, b) => 
-                    (parseFloat(a.preco) || 0) - (parseFloat(b.preco) || 0)
-                );
-            case "validade":
-                return sortedProdutos.sort((a, b) => {
-                    const dateA = a.validade ? new Date(a.validade) : new Date(0);
-                    const dateB = b.validade ? new Date(b.validade) : new Date(0);
-                    return dateA - dateB;
-                });
-            case "marca":
-                return sortedProdutos.sort((a, b) => 
-                    (a.marca || "").localeCompare(b.marca || "")
-                );
-            default:
-                return produtos;
-        }
-    };
-
-    const sortedProdutos = sortProdutos(produtos);
 
     return (
         <div className={styles.container}>
-            <h2 className={styles.title}>Produtos Cadastrados</h2>
-            {sortedProdutos.length === 0 ? (
-                <p className={styles.emptyMessage}>Nenhum produto cadastrado.</p>
+            {produtos.length === 0 ? (
+                <p className={styles.emptyMessage}>Nenhum produto cadastrado para este grupo.</p>
             ) : (
-                <ul className={styles.productList}>
-                    {sortedProdutos.map((produto) => (
-                        <li key={produto.id} className={styles.productItem}>
-                            {produto.fotoURL ? (
-                                <img
-                                    src={produto.fotoURL}
-                                    alt={produto.nome}
-                                    className={styles.productImage}
-                                    onError={(e) => {
-                                        e.target.style.display = "none";
-                                        console.error("Erro ao carregar a imagem. URL:", produto.fotoURL);
-                                    }}
-                                />
-                            ) : (
-                                <div className={styles.imagePlaceholder}>Sem foto</div>
-                            )}
-                            <div className={styles.productDetails}>
-                                <div className={styles.leftDetails}>
-                                    <div className={styles.productName}>{produto.nome}</div>
-                                    <div className={styles.productInfo}>
-                                        Descrição: {produto.descricao || "--"}
-                                    </div>
-                                    <div className={styles.productInfo}>
-                                        Marca: {produto.marca || "--"}
-                                    </div>
+                <div className={styles.itensgrid}>
+                    {produtos.map((produto) => (
+                        <div key={produto.id} className={styles.productItem}>
+                            <div className={styles.productContent}>
+                                <div className={styles.productImageContainer}>
+                                    {produto.fotoURL ? (
+                                        <img
+                                            src={produto.fotoURL}
+                                            alt={produto.nome}
+                                            className={styles.productImage}
+                                            onError={(e) => {
+                                                e.target.style.display = "none";
+                                                console.error("Erro ao carregar a imagem. URL:", produto.fotoURL);
+                                            }}
+                                        />
+                                    ) : (
+                                        <div className={styles.imagePlaceholder}>Sem foto</div>
+                                    )}
                                 </div>
-                                <div className={styles.rightDetails}>
-                                    <div className={styles.productInfo}>
-                                        Preço: {produto.preco ? `R$ ${parseFloat(produto.preco).toFixed(2)}` : "--"}
-                                    </div>
-                                    <div className={styles.productInfo}>
-                                        Validade: {produto.validade || "--"}
+                                <div className={styles.productDetails}>
+                                    <strong className={styles.productName}>{produto.nome}</strong>
+                                    <div className={styles.productInfoList}>
+                                        <p className={styles.productInfo}>
+                                            <span className={styles.infoLabel}>Descrição:</span> {produto.descricao}
+                                        </p>
+                                        <p className={styles.productInfo}>
+                                            <span className={styles.infoLabel}>Marca:</span> {produto.marca}
+                                        </p>
+                                        <p className={styles.productInfo}>
+                                            <span className={styles.infoLabel}>Validade:</span> {produto.validade}
+                                        </p>
+                                        <p className={styles.productInfo}>
+                                            <span className={styles.infoLabel}>Preço:</span> R${produto.preco}
+                                        </p>
                                     </div>
                                 </div>
                             </div>
                             <div className={styles.actionContainer}>
-                                <div className={styles.stockContainer}>
-                                    <span>Quantidade Atual: </span>
+                                <div className={styles.stockAction}>
+                                    Estoque:
                                     <input
                                         type="number"
-                                        value={produto.estoque || ""}
-                                        onChange={(e) => {
-                                            const novoValor = e.target.value;
-                                            setProdutos((prev) =>
-                                                prev.map((p) =>
-                                                    p.id === produto.id ? { ...p, estoque: novoValor } : p
-                                                )
-                                            );
-                                        }}
-                                        onBlur={(e) => handleEstoqueChange(produto.id, e.target.value)}
                                         className={styles.estoqueInput}
+                                        value={estoqueEditado[produto.id] !== undefined ? estoqueEditado[produto.id] : produto.estoque}
+                                        onChange={(e) => handleEstoqueChange(produto.id, e.target.value)}
                                         min="0"
-                                        style={{ width: "80px", padding: "8px", fontSize: "14px" }}
                                     />
                                 </div>
                                 <button
-                                    onClick={() => handleDeleteProduto(produto.id)}
                                     className={styles.deleteButton}
-                                    style={{ padding: "8px 15px", fontSize: "14px" }}
+                                    onClick={() => handleDelete(produto.id)}
                                 >
                                     Deletar
                                 </button>
                             </div>
-                        </li>
+                        </div>
                     ))}
-                </ul>
+                </div>
             )}
         </div>
     );

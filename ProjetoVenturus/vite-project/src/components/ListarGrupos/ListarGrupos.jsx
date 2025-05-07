@@ -1,14 +1,28 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { db } from "../../services";
-import { collection, onSnapshot, deleteDoc, doc } from "firebase/firestore";
+import { collection, onSnapshot, deleteDoc, doc, query, where } from "firebase/firestore";
 import styles from "./ListarGrupos.module.css";
+import { Link } from "react-router-dom";
 import { BotaoCadastrarGrupo } from "../BotãoGrupo";
+import { AuthContext } from "../../Context/AuthContext";
 
 const ListarGrupos = () => {
+    const { usuario } = useContext(AuthContext); // Obter o UID do usuário logado
     const [grupos, setGrupos] = useState([]);
 
     useEffect(() => {
-        const unsubscribe = onSnapshot(collection(db, "grupos"), (snapshot) => {
+        if (!usuario || !usuario.uid) {
+            console.warn("Usuário não autenticado ou UID não disponível.");
+            setGrupos([]);
+            return;
+        }
+
+        const q = query(
+            collection(db, "grupos"),
+            where("userId", "==", usuario.uid)
+        );
+
+        const unsubscribe = onSnapshot(q, (snapshot) => {
             const ListarGrupos = snapshot.docs.map((doc) => ({
                 id: doc.id,
                 ...doc.data(),
@@ -20,7 +34,7 @@ const ListarGrupos = () => {
         });
 
         return () => unsubscribe();
-    }, []);
+    }, [usuario]);
 
     const handleDelete = async (id) => {
         if (window.confirm("Tem certeza que deseja deletar este grupo?")) {
@@ -36,15 +50,10 @@ const ListarGrupos = () => {
 
     return (
         <div className={styles.container}>
-            <BotaoCadastrarGrupo/>
-            
-            
             {grupos.length === 0 ? (
                 <p className={styles.noGroups}>Nenhum grupo cadastrado.</p>
             ) : (
-                
                 <div className={styles.grid}>
-                    
                     {grupos.map((grupo) => (
                         <div key={grupo.id} className={styles.card}>
                             {grupo.fotoURL ? (
@@ -64,6 +73,12 @@ const ListarGrupos = () => {
                                 <strong className={styles.groupName}>{grupo.Nome}</strong>
                                 <p className={styles.detail}>Espécie: {grupo.Especie}</p>
                                 <p className={styles.detail}>Quantidade: {grupo.Quantidade}</p>
+                                <Link
+                                    to={`/produtos/${grupo.id}`}
+                                    className={styles.viewProductsButton}
+                                >
+                                    Ver Produtos
+                                </Link>
                             </div>
                             <button
                                 className={styles.deleteButton}

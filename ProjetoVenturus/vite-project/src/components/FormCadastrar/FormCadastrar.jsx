@@ -47,7 +47,7 @@ const FormCadastrar = () => {
         });
   
         login && login({ uid: user.uid, Nome, Email });
-        navigate('/Dashboard');
+        navigate('/');
       } catch (error) {
         setMensagem('Erro ao cadastrar usuário.' +error.message);
       }
@@ -177,7 +177,7 @@ return(
         {/* Lado direito: Imagem */}
           <MDBCol md="6"  className={`d-none d-md-flex ${styles.imagemLateral}`}>
                 <div>
-                  <img src="../fazenda-cadastrar.png" alt="Imagem de fazenda" className={styles.imagemCad} />
+                  <img src="../../../fazenda-cadastrar.png" alt="Imagem de fazenda" className={styles.imagemCad} />
                   <p className={styles.textoImagem}>
                   Crie sua conta e gerencie suas rações de forma prática e organizada.
                   <br />

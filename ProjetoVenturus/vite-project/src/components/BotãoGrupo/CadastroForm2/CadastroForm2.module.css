@@ -2,6 +2,7 @@
     display: flex;
     gap: 30px; /* Espaço entre a área de foto e os campos */
 }
+
 .formFields {
     flex: 1;
     display: flex;
@@ -89,7 +90,7 @@
 }
 
 .submitButton {
-    background-color: white;/* Cor consistente com o design */
+    background-color: white; /* Cor consistente com o design */
     color: black;
     padding: 5px 15px;
     border: solid var(--verde-claro);
@@ -108,7 +109,7 @@
     color: white;
 }
 
-input{
+input {
     border-radius: 7px;
     border: solid var(--verde-claro) 1px;
     padding: 3px;

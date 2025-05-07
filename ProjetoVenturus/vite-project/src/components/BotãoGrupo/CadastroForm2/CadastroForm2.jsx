@@ -10,7 +10,7 @@ const CadastroForm2 = ({ onSubmit, formData, handleInputChange }) => {
     const file = e.target.files[0];
     if (file) {
       const imageUrl = URL.createObjectURL(file);
-      setPreviewImage(imageUrl); 
+      setPreviewImage(imageUrl);
       handleInputChange(e);
     }
   };
@@ -24,9 +24,9 @@ const CadastroForm2 = ({ onSubmit, formData, handleInputChange }) => {
       <div className={styles.formContainer}>
         <div className={styles.photoContainer}>
           {previewImage ? (
-            <img 
-              src={previewImage} 
-              alt="Pré-visualização" 
+            <img
+              src={previewImage}
+              alt="Pré-visualização"
               className={styles.previewImage}
             />
           ) : (
@@ -35,46 +35,49 @@ const CadastroForm2 = ({ onSubmit, formData, handleInputChange }) => {
           <input
             type="file"
             name="foto"
-            ref={fileInputRef} // Referência ao input
+            ref={fileInputRef}
             onChange={handleFileChange}
             className={styles.photoInput}
             accept="image/*"
           />
-          <div 
-            className={styles.photoOverlay} 
-            onClick={handleOverlayClick} // Evento de clique no overlay
+          <div
+            className={styles.photoOverlay}
+            onClick={handleOverlayClick}
           >
             +
           </div>
         </div>
         <div className={styles.formFields}>
-          <InputForm className={styles.input}
-            label="Nome grupo:&nbsp;&nbsp;"
-            type="text"
-            name="Nome"
-            value={formData.Nome}
-            onChange={handleInputChange}
-            placeholder="Insira aqui..."
-            
-          />
-          <InputForm
-            label="Espécie:&nbsp;&nbsp;"
-            type="text"
-            name="Especie"
-            value={formData.Especie}
-            onChange={handleInputChange}
-            placeholder="Insira aqui..."
-            
-          />
-          <InputForm
-            label="Quantidade de animais:&nbsp;&nbsp;"
-            type="number"
-            name="Quantidade"
-            value={formData.Quantidade}
-            onChange={handleInputChange}
-            placeholder="Insira aqui..."
-            
-          />
+          <div className={styles.inputGroup}>
+            <InputForm
+              label="Nome grupo:"
+              type="text"
+              name="Nome"
+              value={formData.Nome}
+              onChange={handleInputChange}
+              placeholder="Insira aqui..."
+            />
+          </div>
+          <div className={styles.inputGroup}>
+            <InputForm
+              label="Espécie:"
+              type="text"
+              name="Especie"
+              value={formData.Especie}
+              onChange={handleInputChange}
+              placeholder="Insira aqui..."
+            />
+          </div>
+          <div className={styles.inputGroup}>
+            <InputForm
+              label="Quantidade de animais:"
+              type="number"
+              name="Quantidade"
+              value={formData.Quantidade}
+              onChange={handleInputChange}
+              placeholder="Insira aqui..."
+            />
+          </div>
           <button type="submit" className={styles.submitButton}>
             Enviar
           </button>
