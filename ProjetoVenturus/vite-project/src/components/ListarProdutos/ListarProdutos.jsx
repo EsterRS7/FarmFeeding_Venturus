@@ -37,11 +37,31 @@ const ListaProdutos = ({ sortBy, grupoId }) => {
                 where("grupoId", "==", grupoId)
             );
             if (sortBy) {
-                const field = sortBy === "alfabetica" ? "nome" : sortBy;
-                const direction = sortBy === "preco" ? "asc" : "desc";
+                let field = "nome"; // Campo padrão
+                let direction = "asc"; // Direção padrão (A-Z para alfabética e marca)
+            
+                switch (sortBy) {
+                    case "alfabetica":
+                        field = "nome";
+                        direction = "asc"; // A-Z
+                        break;
+                    case "marca":
+                        field = "marca";
+                        direction = "asc"; // A-Z
+                        break;
+                    case "preco":
+                        field = "preco";
+                        direction = "asc"; // Menor para maior
+                        break;
+                    case "validade":
+                        field = "validade";
+                        direction = "desc"; // Mais recente para mais antigo
+                        break;
+                    default:
+                        break;
+                }
                 q = query(q, orderBy(field, direction));
             }
-
             const unsubscribe = onSnapshot(q, (snapshot) => {
                 const listaProdutos = snapshot.docs.map((doc) => ({
                     id: doc.id,
