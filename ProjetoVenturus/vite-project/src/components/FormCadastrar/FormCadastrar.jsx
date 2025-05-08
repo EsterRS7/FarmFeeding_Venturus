@@ -61,7 +61,7 @@ return(
         {/* Lado esquerdo: Formulário */}
         <MDBCol md="6" className="d-flex align-items-center justify-content-center bg-white">
           <form onSubmit={cadastrarUsuario} className={`p-5 rounded shadow w-75`}>
-            <h3 className="text-center mb-4">Cadastra-se Aqui!</h3>
+            <h3 className="text-center mb-4">Cadastre-se Aqui!</h3>
 
             <div className="mb-4">
               <MDBInput
