@@ -55,7 +55,7 @@ const ListaProdutos = ({ sortBy, grupoId }) => {
                         break;
                     case "validade":
                         field = "validade";
-                        direction = "desc"; // Mais recente para mais antigo
+                        direction = "asc"; // Mais recente para mais antigo
                         break;
                     default:
                         break;
