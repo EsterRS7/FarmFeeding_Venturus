@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, useContext } from 'react';
 import { AuthContext } from '../../Context/AuthContext';
 import style from './pagperfil.module.css';
-import { db } from '../../services/firebase'; // Importa o Firestore
+import { db } from '../../services/firebase';
 import { doc, setDoc, getDoc, collection, query, where, onSnapshot } from 'firebase/firestore';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
@@ -31,8 +31,6 @@ const uploadToCloudinary = async (file) => {
     throw new Error(`Erro ao fazer upload para o Cloudinary: ${errorMessage}`);
   }
 };
-
-
 
 const PagPerfil = () => {
   const { usuario } = useContext(AuthContext);
@@ -218,9 +216,7 @@ const PagPerfil = () => {
 
   return (
     <div className={style.Perfil}>
-
       <div className={style.containerPai}>
-
         <div className={style.voltar}>
           <Link to="/">
             <img src='./public/volta.png' alt="Voltar" className={style.btnVoltar}/>
@@ -230,13 +226,11 @@ const PagPerfil = () => {
         
         <div className={style.containerFilho}>
           <div className={style.photoContainer}>
-
             {previewImage ? (
               <img src={previewImage} alt="Pré-visualização" className={style.previewImage} />
             ) : (
               <div className={style.photoIcon}></div>
             )}
-
             <input
               type="file"
               name="foto"
@@ -250,8 +244,6 @@ const PagPerfil = () => {
             </div>
           </div>
 
-
-
           <form className={style.DadosPerfil}>
             <div className={style.groupinput}>
               <p>Nome de usuário:</p>
@@ -259,6 +251,7 @@ const PagPerfil = () => {
                 type="text"
                 name="Nome"
                 className={style.input1}
+                placeholder="Digite seu nome"
                 value={formData.Nome}
                 onChange={handleInputChange}
                 onBlur={handleInputBlur}
@@ -269,6 +262,7 @@ const PagPerfil = () => {
                 type="date"
                 name="DataNasc"
                 className={style.input1}
+                placeholder="Selecione sua data de nascimento"
                 value={formData.DataNasc}
                 onChange={handleInputChange}
                 onBlur={handleInputBlur}
@@ -279,6 +273,7 @@ const PagPerfil = () => {
                 type="text"
                 name="Endereco"
                 className={style.input1}
+                placeholder="Digite seu endereço"
                 value={formData.Endereco}
                 onChange={handleInputChange}
                 onBlur={handleInputBlur}
@@ -289,6 +284,7 @@ const PagPerfil = () => {
                 type="text"
                 name="Cidade"
                 className={style.input2}
+                placeholder="Digite sua cidade"
                 value={formData.Cidade}
                 onChange={handleInputChange}
                 onBlur={handleInputBlur}
@@ -299,6 +295,7 @@ const PagPerfil = () => {
                 type="tel"
                 name="Telefone"
                 className={style.input2}
+                placeholder="Digite seu telefone"
                 value={formData.Telefone}
                 onChange={handleInputChange}
                 onBlur={handleInputBlur}
@@ -309,6 +306,7 @@ const PagPerfil = () => {
                 type="email"
                 name="Email"
                 className={style.inputEmail}
+                placeholder="Digite seu email"
                 value={formData.Email}
                 onChange={handleInputChange}
                 onBlur={handleInputBlur}
@@ -326,7 +324,6 @@ const PagPerfil = () => {
           </div>
         </div>
       </div>
-
     </div>
   );
 };

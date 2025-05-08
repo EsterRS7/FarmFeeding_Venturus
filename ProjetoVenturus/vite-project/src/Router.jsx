@@ -11,7 +11,7 @@ const Router = () => {
           <Route index element={<PagIncial />} />
           <Route path="login" element={<Login />} />
           <Route path="cadastra-se" element={<Cadastrar />} />
-          <Route path="Perfil" element={<PagPerfil/>} />
+          <Route path="Perfil" element={<PagPerfil />} />
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="produtos/:grupoId" element={<Produtoscad />} />
         </Route>
