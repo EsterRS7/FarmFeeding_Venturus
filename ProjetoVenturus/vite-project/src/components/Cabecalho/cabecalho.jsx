@@ -24,7 +24,7 @@ const Cabecalho = () => {
             <Link className={style.linkB} to="/">
                 {/* LADO ESQUERDO */}
                 <div className={style.filho}>
-                    <img src='./public/fazenda.png' alt="Logo FarmFeeding" />
+                    <img src='../../../fazenda.png' alt="Logo FarmFeeding" />
                 </div>
                 <div className={style.nome}>
                     Farm<span>Feeding</span>

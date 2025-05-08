@@ -14,7 +14,7 @@ const PagIncial = () => {
     return (
         <div className={style.PagIncial}>
             <div className={style.imgContainer}>
-                <img className={style.fundo} src='./public/fundo2.jpg' alt="Fundo" />
+                <img className={style.fundo} src='../../../fundo2.jpg' alt="Fundo" />
                 <div className={style.sobreposto}>
                     <div className={style.conteudoCard}>
                         <h3 className={style.slogan}>Controle no campo, cuidado com os animais</h3>
