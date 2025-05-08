@@ -2,7 +2,7 @@
   padding: 5px 15px;
   border-radius: 20px;
   border: 2px solid var(--verde-claro);
-  font-size: 13px;
+  font-size: 0.9rem;
   background-color: transparent;
   position: relative;
   cursor: pointer;
