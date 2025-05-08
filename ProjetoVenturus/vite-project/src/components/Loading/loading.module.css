@@ -1,0 +1,38 @@
+/* src/components/Loading/loading.module.css */
+.Loading {
+    position: fixed; /* Garante que cubra a tela inteira */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh; /* Altura total da viewport */
+    background: rgba(0, 0, 0, 0.8); /* Fundo escuro e semi-opaco */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000; /* Z-index muito alto para sobrepor tudo */
+  }
+  
+  .spinner {
+    width: 50px;
+    height: 50px;
+    border: 6px solid #f3f3f3;
+    border-top: 6px solid var(--amarelo); /* Usa a cor do tema */
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+  
+  .Loading p {
+    color: white;
+    font-size: 1.2rem;
+    margin-top: 10px;
+  }
+  
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }

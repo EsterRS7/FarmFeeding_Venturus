@@ -157,9 +157,13 @@ img.btnVoltar{
 }
 
 .voltar{
-    display: flex;
+    display: flex; 
     flex-direction: column;
     padding: auto;
+}
+
+.linkVolt{
+    width: fit-content;
 }
 
 .h3{

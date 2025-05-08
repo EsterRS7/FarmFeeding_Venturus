@@ -111,7 +111,7 @@ const BotaoCadastrarGrupo = () => {
             </button>
 
             <Modal isOpen={isContatoOpen} onClose={() => setIsContatoOpen(false)}>
-                <CadastroForm2
+                <CadastroForm2 
                     onSubmit={handleContatoSubmit}
                     formData={contatoData}
                     handleInputChange={handleContatoInputChange}

@@ -9,10 +9,12 @@
 }
 
 .formContainer {
+    align-items: anchor-center;
     display: flex;
+    margin: 25px;
     gap: 30px; /* Aumentado de 20px para 30px para mais espaço entre os campos e a área de foto */
 }
-
+ 
 .formFields {
     flex: 1;
     display: flex;
@@ -55,7 +57,7 @@
 }
 
 .inputGroupSideBySide {
-    display: flex;
+    display: contents;
     gap: 20px; /* Aumentado de 15px para 20px para mais espaço entre "Validade" e "Estoque" */
 }
 
@@ -110,17 +112,22 @@
 }
 
 .submitButton {
-    background-color: var(--verde-claro);
-    color: white;
-    padding: 10px 24px; /* Aumentado de 8px 20px para 10px 24px */
-    border: none;
+    background-color: white;
+    color: black;
+    padding: 5px 15px; /* Aumentado de 8px 20px para 10px 24px */
+    border: solid 2px var(--verde-claro);
     border-radius: 20px;
     font-size: 16px; /* Aumentado de 14px para 16px */
     font-weight: 500;
     cursor: pointer;
     margin-top: 30px; /* Aumentado de 20px para 30px para mais espaço */
+    transition: background-color 0.3s;
+    display: flex;
+    justify-self: center;
+    
 }
 
 .submitButton:hover {
-    background-color: #245a38;
+    background-color: var(--verde-claro);
+    color: white;
 }

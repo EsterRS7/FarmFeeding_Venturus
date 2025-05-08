@@ -32,5 +32,7 @@
 
 .creditos{
     text-align: end;
-    margin: 30px ;
+    margin: 30px;
+    margin-top: 10px;
+    font-size: 10px;
 }

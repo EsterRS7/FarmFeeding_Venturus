@@ -12,7 +12,7 @@ return (
         <main>
             <Outlet />
         </main>
-      <Rodape />
+      <Rodape/>
     </div>
   );
 };

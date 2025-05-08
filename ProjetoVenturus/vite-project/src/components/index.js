@@ -6,5 +6,6 @@ export * from './FormLogin'
 export * from './BotãoGrupo'
 export * from './ListarGrupos'
 export * from './ListarProdutos'
+export * from './Loading'
 
 import 'mdb-react-ui-kit/dist/css/mdb.min.css';

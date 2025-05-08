@@ -216,13 +216,15 @@ const PagPerfil = () => {
     }
   };
 
+  
+
   return (
     <div className={style.Perfil}>
 
       <div className={style.containerPai}>
 
         <div className={style.voltar}>
-          <Link to="/">
+          <Link to="/" className={style.linkVolt}>
             <img src='./public/volta.png' alt="Voltar" className={style.btnVoltar}/>
           </Link>
           <h3 className={style.h3}>Seu Perfil</h3>

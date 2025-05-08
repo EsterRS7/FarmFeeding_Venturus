@@ -6,7 +6,7 @@ import { AuthContext } from "../../../Context/AuthContext";
 import { Modal } from "../Modal";
 import styles from "./Botao.module.css";
 import { RegistrarProdutoForm } from "../RegistrarProdutoForm";
-
+ 
 // Configuração do Cloudinary
 const CLOUDINARY_CLOUD_NAME = "dcbmnqbce";
 const CLOUDINARY_UPLOAD_PRESET = "UploadFarmFeeding";

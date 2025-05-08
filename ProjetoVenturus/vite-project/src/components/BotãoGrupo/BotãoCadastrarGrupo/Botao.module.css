@@ -3,7 +3,7 @@
     border: none;
     border-radius: 20px;
     border: 2px solid var(--verde-claro);
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     background-color: transparent;
     position: relative;
     cursor: pointer;
@@ -13,7 +13,7 @@
 
   .span {
     color: var(--verde-claro);
-    font-weight: bold;
+    font-weight: bold; 
   }
   
   .button:hover {
