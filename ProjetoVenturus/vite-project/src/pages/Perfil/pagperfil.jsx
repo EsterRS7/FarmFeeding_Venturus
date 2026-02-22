@@ -47,7 +47,9 @@ const PagPerfil = () => {
     produtosCount: 0,
   });
   const fileInputRef = useRef(null);
-
+  const [isEditing, setIsEditing] = useState(false);
+  const [originalData, setOriginalData] = useState(null);
+  
   // Busca os dados do usuário no Firestore, userIds dos grupos e contagem de produtos
   useEffect(() => {
     if (usuario) {
@@ -69,6 +71,15 @@ const PagPerfil = () => {
               userIdsFromGroups: data.userIdsFromGroups || [],
               produtosCount: data.produtosCount || 0,
             }));
+            setOriginalData({
+              Nome: data.Nome || '',
+              DataNasc: data.DataNasc || '',
+              Endereco: data.Endereco || '',
+              Cidade: data.Cidade || '',
+              Telefone: data.Telefone || '',
+              Email: data.Email || '',
+              fotoURL: data.fotoURL || null,
+            });
             if (data.fotoURL) {
               setPreviewImage(data.fotoURL);
             } else {
@@ -82,7 +93,7 @@ const PagPerfil = () => {
           alert('Erro ao carregar dados do perfil. Verifique o console para mais detalhes.');
         }
       };
-
+      
       const fetchUserIdsFromGroups = () => {
         const q = query(collection(db, 'grupos'), where('userId', '==', usuario.uid));
         const unsubscribe = onSnapshot(q, (snapshot) => {
@@ -95,13 +106,13 @@ const PagPerfil = () => {
               grupoIds.push(doc.id);
             }
           });
-
+          
           const userDocRef = doc(db, 'usuarios', usuario.uid);
           setDoc(userDocRef, { userIdsFromGroups: userIds }, { merge: true })
-            .then(() => {
-              setFormData((prev) => ({
-                ...prev,
-                userIdsFromGroups: userIds,
+          .then(() => {
+            setFormData((prev) => ({
+              ...prev,
+              userIdsFromGroups: userIds,
               }));
               fetchProdutosCount(grupoIds);
             })
@@ -111,10 +122,10 @@ const PagPerfil = () => {
         }, (error) => {
           console.error('Erro ao buscar userIds dos grupos:', error);
         });
-
+        
         return () => unsubscribe();
       };
-
+      
       const fetchProdutosCount = (grupoIds) => {
         if (grupoIds.length === 0) {
           setFormData((prev) => ({
@@ -123,40 +134,41 @@ const PagPerfil = () => {
           }));
           return;
         }
-
+        
         const q = query(collection(db, 'produtos'), where('grupoId', 'in', grupoIds));
         const unsubscribe = onSnapshot(q, (snapshot) => {
           const produtosCount = snapshot.docs.length;
           const userDocRef = doc(db, 'usuarios', usuario.uid);
           setDoc(userDocRef, { produtosCount: produtosCount }, { merge: true })
-            .then(() => {
-              setFormData((prev) => ({
-                ...prev,
-                produtosCount: produtosCount,
+          .then(() => {
+            setFormData((prev) => ({
+              ...prev,
+              produtosCount: produtosCount,
               }));
             })
             .catch((error) => {
               console.error('Erro ao atualizar contagem de produtos no perfil:', error);
             });
-        }, (error) => {
-          console.error('Erro ao buscar produtos:', error);
-        });
+          }, (error) => {
+            console.error('Erro ao buscar produtos:', error);
+          });
+          
+          return () => unsubscribe();
+        };
+        
+        fetchUserData();
+        fetchUserIdsFromGroups();
+      }
+    }, [usuario]);
 
-        return () => unsubscribe();
-      };
+    const handleOverlayClick = () => {
+      fileInputRef.current.click();
+    };
 
-      fetchUserData();
-      fetchUserIdsFromGroups();
-    }
-  }, [usuario]);
-
-  const handleOverlayClick = () => {
-    fileInputRef.current.click();
-  };
-
-  const handleFileChange = async (e) => {
+    const handleFileChange = async (e) => {
     const file = e.target.files[0];
     if (file) {
+      if (!isEditing) return;
       const imageUrl = URL.createObjectURL(file);
       setPreviewImage(imageUrl);
       setFormData((prev) => ({
@@ -181,7 +193,7 @@ const PagPerfil = () => {
       }
     }
   };
-
+  
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -190,32 +202,43 @@ const PagPerfil = () => {
     }));
   };
 
-  const handleInputBlur = async (e) => {
-    const { name, value } = e.target;
-    if (!usuario) {
-      alert('Você precisa estar logado para atualizar o perfil.');
-      return;
-    }
-
+  const handleEditClick = () => {
+    setIsEditing(true);
+  };
+  const handleSave = async () => {
     try {
       const userDocRef = doc(db, 'usuarios', usuario.uid);
       await setDoc(
         userDocRef,
         {
-          [name]: value,
+          Nome: formData.Nome,
+          DataNasc: formData.DataNasc,
+          Endereco: formData.Endereco,
+          Cidade: formData.Cidade,
+          Telefone: formData.Telefone,
+          Email: formData.Email,
           updatedAt: new Date(),
         },
         { merge: true }
       );
-      alert(`Campo "${name}" atualizado com sucesso!`);
+      setOriginalData({
+        Nome: formData.Nome,
+        DataNasc: formData.DataNasc,
+        Endereco: formData.Endereco,
+        Cidade: formData.Cidade,
+        Telefone: formData.Telefone,
+        Email: formData.Email,
+        fotoURL: previewImage || null,
+      });
+      setIsEditing(false);
+      alert('Perfil atualizado com sucesso!');
     } catch (error) {
-      console.error(`Erro ao atualizar o campo ${name}:`, error);
-      alert(`Erro ao atualizar o campo ${name}. Verifique o console para mais detalhes.`);
+        console.error('Erro ao atualizar o perfil:', error);
+        alert('Erro ao atualizar o perfil. Verifique o console para mais detalhes.');
     }
   };
 
-  
-
+  /*Tela de perfil */
   return (
     <div className={style.Perfil}>
       <div className={style.containerPai}>
@@ -238,10 +261,11 @@ const PagPerfil = () => {
               name="foto"
               ref={fileInputRef}
               onChange={handleFileChange}
+              disabled={!isEditing}
               className={style.photoInput}
               accept="image/*"
             />
-            <div className={style.photoOverlay} onClick={handleOverlayClick}>
+            <div className={style.photoOverlay} onClick={isEditing ? handleOverlayClick : undefined}>
               Editar Foto
             </div>
           </div>
@@ -256,7 +280,7 @@ const PagPerfil = () => {
                 placeholder="Digite seu nome"
                 value={formData.Nome}
                 onChange={handleInputChange}
-                onBlur={handleInputBlur}
+                disabled={!isEditing}
               />
               <br />
               <p>Data de nascimento:</p>
@@ -267,7 +291,7 @@ const PagPerfil = () => {
                 placeholder="Selecione sua data de nascimento"
                 value={formData.DataNasc}
                 onChange={handleInputChange}
-                onBlur={handleInputBlur}
+                disabled={!isEditing}
               />
               <br />
               <p>Endereço:</p>
@@ -278,7 +302,7 @@ const PagPerfil = () => {
                 placeholder="Digite seu endereço"
                 value={formData.Endereco}
                 onChange={handleInputChange}
-                onBlur={handleInputBlur}
+                disabled={!isEditing}
               />
               <br />
               <p>Cidade:</p>
@@ -289,7 +313,7 @@ const PagPerfil = () => {
                 placeholder="Digite sua cidade"
                 value={formData.Cidade}
                 onChange={handleInputChange}
-                onBlur={handleInputBlur}
+                disabled={!isEditing}
               />
               <br />
               <p>Telefone:</p>
@@ -300,7 +324,7 @@ const PagPerfil = () => {
                 placeholder="Digite seu telefone"
                 value={formData.Telefone}
                 onChange={handleInputChange}
-                onBlur={handleInputBlur}
+                disabled={!isEditing}
               />
               <br />
               <p>Email:</p>
@@ -311,14 +335,32 @@ const PagPerfil = () => {
                 placeholder="Digite seu email"
                 value={formData.Email}
                 onChange={handleInputChange}
-                onBlur={handleInputBlur}
+                disabled={!isEditing}
               />
               <br />
               <br />
             </div>
+            <div className={`${style.btnAlt} ${isEditing ? style.editing : ''}`}>
+              <button
+                type="button"
+                className={`${style.btnSalvar} ${isEditing ? style.show : style.hide}`}
+                onClick={handleSave}
+              >
+                Salvar Alterações
+              </button>
+
+              <button
+                type="button"
+                className={`${style.btnEditar} ${isEditing ? style.hide : style.show}`}
+                onClick={handleEditClick}
+              >
+                Editar Informações
+              </button>
+            </div>
           </form>
         </div>
-
+<br />
+<hr />
         <div className={style.statsContainer}>
           <div className={style.inf}>
             <div className={style.displayButton}>Grupos Cadastrados: {formData.userIdsFromGroups.length}</div>

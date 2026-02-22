@@ -80,7 +80,6 @@ body {
     color: white;
 }
 
-
 .DadosPerfil {
     flex: 1;
 }
@@ -100,7 +99,6 @@ p{
     margin-top: 15px;
     margin-bottom: 0;
 }
-
 .statsContainer {
     width: 100%;
     margin-top: 20px;
@@ -114,8 +112,6 @@ p{
     display: inline-flex;
     gap: 20px;
     align-content: center;
-    
-    
 }
 
 .displayButton {
@@ -169,6 +165,62 @@ img.btnVoltar{
 .h3{
     width: auto;
     display: flex;
+    text-align: center;
     justify-content: center;
     font-family: Nunito Sans;
+}
+.btnAlt{
+    display: inline-flex;
+    gap: 20px;
+}
+
+.btnSalvar{
+    padding: 5px 15px;
+    background-color: white;
+    border-radius: 10px;
+    border: 1.5px solid var(--verde-claro);
+    color: black;
+    text-align: center;
+    font-size: 14px;
+}
+
+.btnEditar{
+    padding: 5px 15px;
+    background-color: white;
+    border-radius: 10px;
+    border: 1.5px solid var(--verde-claro);
+    color: black;
+    font-size: 14px;
+}
+
+.show{
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+    transition: opacity .28s ease, transform .28s ease;
+}
+
+.hide{
+    opacity: 0;
+    transform: translateY(-8px);
+    pointer-events: none;
+    transition: opacity .18s ease, transform .18s ease;
+}
+
+/* add slight delay to the save button so swap feels smoother */
+.btnSalvar.show{
+    transition-delay: 120ms;
+}
+.btnEditar.hide{
+    transition-delay: 0ms;
+}
+.btnEditar:hover{
+    background-color: var(--verde-claro);
+    color: white;
+    
+}
+.btnSalvar:hover{
+    background-color: var(--verde-claro);
+    color: white;
+    
 }

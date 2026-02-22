@@ -35,15 +35,17 @@ const RegistrarProdutoForm = ({ onSubmit, formData, handleInputChange }) => {
             value={formData.nome}
             onChange={handleInputChange}
             placeholder="Insira aqui..."
+            maxlength={10}
           />
-          <InputForm
-            label="Descrição:&nbsp;&nbsp;"
-            type="text"
+         <textarea
             name="descricao"
             value={formData.descricao}
             onChange={handleInputChange}
-            placeholder="Insira aqui..."
+            placeholder="Insira aqui uma breve descrição do produto..."
+            maxLength={150}
+            rows={4}
           />
+          <p>{formData.descricao.length} / 150</p>
           <InputForm
             label="Marca:&nbsp;&nbsp;"
             type="text"
@@ -51,6 +53,7 @@ const RegistrarProdutoForm = ({ onSubmit, formData, handleInputChange }) => {
             value={formData.marca}
             onChange={handleInputChange}
             placeholder="Insira aqui..."
+            maxlength={10}
           />
           <div className={styles.inputGroupSideBySide}>
             <InputForm

@@ -3,12 +3,12 @@ import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-    apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-    authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-    projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-    storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-    messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-    appId: import.meta.env.VITE_FIREBASE_APP_ID,
+    apiKey: "AIzaSyDLbq43QKx5xrCySOmfcKFPMeZ_aXJz6Wo",
+    authDomain: "farmfeedig-web.firebaseapp.com",
+    projectId: "farmfeedig-web",
+    storageBucket: "farmfeedig-web.firebasestorage.app",
+    messagingSenderId: "937550255713",
+    appId: "1:937550255713:web:0942ed63b9f5cb8f0b7c20"
   };
 
 const app = initializeApp(firebaseConfig);

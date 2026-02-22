@@ -1,10 +1,23 @@
-.Rodape{
-    position: relative;
-    bottom: 0;
-
-    font-family: 'Nunito Sans', sans-serif;
-    background-color: var(--cinza);
+.Rodape {
     width: 100%;
-    padding: 35px;
+    background-color: rgb(10, 70, 10);
+    color: #aaa;
+    padding: 20px 0;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 13px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
     text-align: center;
+}
+
+.Rodape p {
+    margin: 4px 0;
+}
+
+.Rodape p:first-child {
+    color: #fff;
+    font-weight: 500;
 }

@@ -69,23 +69,25 @@ const ListarGrupos = () => {
                             ) : (
                                 <div className={styles.noImage}>Sem foto</div>
                             )}
-                            <div className={styles.info}>
-                                <strong className={styles.groupName}>{grupo.Nome}</strong>
-                                <p className={styles.detail}>Espécie: {grupo.Especie}</p>
-                                <p className={styles.detail}>Quantidade: {grupo.Quantidade}</p>
-                                <Link
-                                    to={`/produtos/${grupo.id}`}
-                                    className={styles.viewProductsButton}
+                            <div>
+                                <div className={styles.info}>
+                                    <strong className={styles.groupName}>{grupo.Nome}</strong>
+                                    <p className={styles.detail}>Espécie: {grupo.Especie}</p>
+                                    <p className={styles.detail}>Quantidade: {grupo.Quantidade}</p>
+                                    <Link
+                                        to={`/produtos/${grupo.id}`}
+                                        className={styles.viewProductsButton}
+                                    >
+                                        Ver Produtos
+                                    </Link>
+                                </div><br />
+                                <button
+                                    className={styles.deleteButton}
+                                    onClick={() => handleDelete(grupo.id)}
                                 >
-                                    Ver Produtos
-                                </Link>
+                                    Deletar
+                                </button>
                             </div>
-                            <button
-                                className={styles.deleteButton}
-                                onClick={() => handleDelete(grupo.id)}
-                            >
-                                Deletar
-                            </button>
                         </div>
                     ))}
                 </div>
